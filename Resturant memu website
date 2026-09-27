@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spicy Bites Restaurant - Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ffb703;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Category Filter Buttons */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: #ffffff;
+            border: 2px solid #e63946;
+            color: #e63946;
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #e63946;
+            color: white;
+        }
+
+        /* Menu Grid */
+        .menu-container {
+            max-width: 1100px;
+            margin: 0 auto 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-details {
+            padding: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .item-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1d3557;
+        }
+
+        .item-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #e63946;
+        }
+
+        .item-desc {
+            font-size: 0.9rem;
+            color: #6c757d;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1d3557;
+            color: white;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Spicy Bites Restaurant</h1>
+        <p>Delicious food made with fresh ingredients</p>
+    </header>
+
+    <!-- Filter Buttons -->
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="filterMenu('all')">All</button>
+        <button class="filter-btn" onclick="filterMenu('starters')">Starters</button>
+        <button class="filter-btn" onclick="filterMenu('mains')">Main Course</button>
+        <button class="filter-btn" onclick="filterMenu('desserts')">Desserts</button>
+        <button class="filter-btn" onclick="filterMenu('drinks')">Drinks</button>
+    </div>
+
+    <!-- Menu Items Container -->
+    <div class="menu-container" id="menu-items">
+        <!-- Javascript dynamic items dynamic ga generate avthayi -->
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2026 Spicy Bites. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Menu Items Data Array
+        const menuData = [
+            {
+                name: "Chicken 65",
+                category: "starters",
+                price: "₹240",
+                desc: "Spicy, deep-fried chicken marinated in Indian spices.",
+                image: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "Paneer Tikka",
+                category: "starters",
+                price: "₹220",
+                desc: "Grilled cottage cheese cubes marinated in yogurt and spices.",
+                image: "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "Hyderabadi Chicken Biryani",
+                category: "mains",
+                price: "₹320",
+                desc: "Aromatic basmati rice cooked with juicy chicken and spices.",
+                image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "Butter Paneer Masala",
+                category: "mains",
+                price: "₹260",
+                desc: "Rich and creamy curry made with cottage cheese, butter, and tomato sauce.",
+                image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "Gulab Jamun",
+                category: "desserts",
+                price: "₹90",
+                desc: "Soft fried milk dumplings soaked in cardamom sugar syrup.",
+                image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                name: "Mango Lassi",
+                category: "drinks",
+                price: "₹80",
+                desc: "Refreshing sweet yogurt drink blended with fresh mango pulp.",
+                image: "https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=500&q=80"
+            }
+        ];
+
+        // Function to Display Menu Items
+        function displayMenu(items) {
+            const menuContainer = document.getElementById("menu-items");
+            menuContainer.innerHTML = "";
+
+            items.forEach(item => {
+                const card = `
+                    <div class="menu-card">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="card-details">
+                            <div class="card-header">
+                                <span class="item-name">${item.name}</span>
+                                <span class="item-price">${item.price}</span>
+                            </div>
+                            <p class="item-desc">${item.desc}</p>
+                        </div>
+                    </div>
+                `;
+                menuContainer.innerHTML += card;
+            });
+        }
+
+        // Function to Filter Menu by Category
+        function filterMenu(category) {
+            // Update Active Class on Buttons
+            const buttons = document.querySelectorAll(".filter-btn");
+            buttons.forEach(btn => btn.classList.remove("active"));
+            event.target.classList.add("active");
+
+            // Filter Logic
+            if (category === "all") {
+                displayMenu(menuData);
+            } else {
+                const filteredItems = menuData.filter(item => item.category === category);
+                displayMenu(filteredItems);
+            }
+        }
+
+        // Initial Load (Display All Items)
+        displayMenu(menuData);
+    </script>
+</body>
+</html>
